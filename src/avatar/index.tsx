@@ -1,18 +1,22 @@
 import React, { useId } from 'react'
-import Clothe, { ClotheType } from './clothe'
-import { Color } from './color'
+import Cloth, { ClothType } from './cloth'
+import Graphic, { GraphicType } from './cloth/graphic'
+import { Color, colorString } from './color'
 
 export interface AvatarProps {
   topType?: string
-  accessoriesType?: string
-  hairColor?: string | Color
+  accessoryType?: string
+  hatColor?: string
+  hairColor?: string
   facialHairType?: string
-  clotheType?: ClotheType
+  facialHairColor?: string
+  clothType?: ClothType
+  clothColor?: colorString
+  graphicType?: GraphicType
   eyeType?: string
   eyebrowType?: string
   mouthType?: string
-  noseType?: string
-  skinColor?: string | Color
+  skinColor?: string
   avatarStyle: AvatarStyleType
 }
 
@@ -107,7 +111,7 @@ export default function Avatar(props : AvatarProps) {
                 mask={'url(#' + mask3 + ')'}
               />
             </g>
-            <Clothe type={props.clotheType} />
+            <Cloth type={props.clothType} color={props.clothColor} graphic={props.graphicType}/>
           </g>
         </g>
       </g>
