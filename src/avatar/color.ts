@@ -23,5 +23,34 @@ export const colorMap = {
   'Red': '#FF5C5C',
   'White': '#FFFFFF'
 } as const;
+export const colorStringList = Object.keys(colorMap) as ColorString[];
 
-export type colorString = keyof typeof colorMap;
+export const skinColorMap = {
+  'Tanned': '#FD9841',
+  'Yellow': '#F8D25C',
+  'Pale': '#FFDBB4',
+  'Light': '#EDB98A',
+  'Brown': '#D08B5B',
+  'DarkBrown': '#AE5D29',
+  'Black': '#614335',
+} as const;
+export const skinColorStringList = Object.keys(skinColorMap) as SkinColorString[];
+
+export const hairColorMap = {
+  'Auburn': '#A55728', 
+  'Black': '#2C1B18',
+  'Blonde': '#B58143',
+  'BlondeGolden': '#D6B370',
+  'Brown': '#724133',
+  'BrownDark': '#4A312C',
+  'PastelPink': '#F59797',
+  'Blue': '#000fdb',
+  'Platinum': '#ECDCBF',
+  'Red': '#C93305',
+  'SilverGray': '#E8E1E1'
+} as const;
+export const hairColorStringList = Object.keys(hairColorMap) as HairColorString[];
+
+export type ColorString = keyof typeof colorMap;
+export type SkinColorString = keyof typeof skinColorMap;
+export type HairColorString = keyof typeof hairColorMap;

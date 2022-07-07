@@ -1,35 +1,45 @@
 import React, { useId } from 'react'
 import Cloth, { ClothType } from './cloth'
-import Graphic, { GraphicType } from './cloth/graphic'
-import { Color, colorString } from './color'
+import Face from './face'
+import { GraphicType } from './cloth/graphic'
+import { ColorString, HairColorString, SkinColorString } from './color'
+import { EyeType } from './face/eye'
+import { EyebrowType } from './face/eyebrow'
+import { MouthType } from './face/mouth'
+import Skin from './Skin'
+import FacialHair, { FacialHairType } from './top/facialHair'
+import Accesories, { AccessoriesType } from './top/accessories'
+import Top, { TopType } from './top'
 
 export interface AvatarProps {
-  topType?: string
-  accessoryType?: string
-  hatColor?: string
-  hairColor?: string
-  facialHairType?: string
-  facialHairColor?: string
+  className?: string
+  style?: React.CSSProperties
+  topType?: TopType
+  accessoriesType?: AccessoriesType
+  hatColor?: ColorString
+  hairColor?: HairColorString
+  facialHairType?: FacialHairType
+  facialHairColor?: HairColorString
   clothType?: ClothType
-  clothColor?: colorString
+  clothColor?: ColorString
   graphicType?: GraphicType
-  eyeType?: string
-  eyebrowType?: string
-  mouthType?: string
-  skinColor?: string
+  eyeType?: EyeType
+  eyebrowType?: EyebrowType
+  mouthType?: MouthType
+  skinColor?: SkinColorString
   avatarStyle: AvatarStyleType
 }
 
 // background style
-export const AvatarStyleKind = [
-  'circle',
-  'transparent'
+export const avatarStyleKind = [
+  'Circle',
+  'Transparent'
 ] as const 
 
-export type AvatarStyleType = typeof AvatarStyleKind[number]
+export type AvatarStyleType = typeof avatarStyleKind[number]
 
 export default function Avatar(props : AvatarProps) {
-  const circle = props.avatarStyle === 'circle'
+  const circle = props.avatarStyle === 'Circle'
   const path1 = useId()
   const path2 = useId()
   const path3 = useId()
@@ -37,9 +47,12 @@ export default function Avatar(props : AvatarProps) {
   const mask2 = useId()
   const mask3 = useId()
   return <svg
+    className={props.className}
+    style={props.style}
     width="264px"
     height="280px"
     viewBox="0 0 264 280"
+    role="img"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -103,6 +116,7 @@ export default function Avatar(props : AvatarProps) {
                 <use xlinkHref={'#' + path3} />
               </mask>
               <use fill="#D0C6AC" xlinkHref={'#' + path3} />
+              <Skin maskID={mask3} color={props.skinColor} />
               <path
                 d="M156,79 L156,102 C156,132.927946 130.927946,158 100,158 C69.072054,158 44,132.927946 44,102 L44,79 L44,94 C44,124.927946 69.072054,150 100,150 C130.927946,150 156,124.927946 156,94 L156,79 Z"
                 id="Neck-Shadow"
@@ -112,6 +126,11 @@ export default function Avatar(props : AvatarProps) {
               />
             </g>
             <Cloth type={props.clothType} color={props.clothColor} graphic={props.graphicType}/>
+            <Face eyeType={props.eyeType} eyebrowType={props.eyebrowType} mouthType={props.mouthType}/>
+            <Top type={props.topType} haircolor={props.hairColor} color={props.hatColor}>
+              <FacialHair type={props.facialHairType} color={props.facialHairColor}/>
+              <Accesories type={props.accessoriesType}/>
+            </Top>
           </g>
         </g>
       </g>

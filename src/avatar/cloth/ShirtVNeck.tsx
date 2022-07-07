@@ -1,8 +1,8 @@
 import React, { useId } from 'react'
 import Colors from './Colors'
-import { colorString } from '../color'
+import { ColorString } from '../color'
 
-export default function ShirtVNeck({color}: {color: colorString}) {
+export default function ShirtVNeck({color}: {color: ColorString}) {
   const path1 = useId()
   const mask1 = useId()
   return (

@@ -1,8 +1,8 @@
 import React, { useId } from 'react'
-import { colorString } from '../color'
+import { ColorString } from '../color'
 import Colors from './Colors'
 
-export default function CollarSweater({color}: {color: colorString}) {
+export default function CollarSweater({color}: {color: ColorString}) {
   const path1 = useId()
   const mask1 = useId()
   return <g

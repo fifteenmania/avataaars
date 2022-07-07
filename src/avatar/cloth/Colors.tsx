@@ -1,5 +1,5 @@
 import React from "react";
-import { Color, colorMap, colorString } from "../color";
+import { Color, colorMap, ColorString } from "../color";
 
 function ColorFill({maskID, color}: {maskID: string, color: Color}) {
   return <g
@@ -11,6 +11,6 @@ function ColorFill({maskID, color}: {maskID: string, color: Color}) {
   </g>
 }
 
-export default function Colors({maskID, color}: {maskID: string, color: colorString}) {
+export default function Colors({maskID, color}: {maskID: string, color: ColorString}) {
   return <ColorFill maskID={maskID} color={colorMap[color]} />
 }

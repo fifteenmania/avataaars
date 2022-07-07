@@ -11,51 +11,24 @@ import Pizza from "./Pizza";
 import Resist from "./Resist";
 import Bear from "./Bear";
 
-export const GraphicKind = [
-  'Skull',
-  'SkullOutline',
-  'Bat',
-  'Cumbia',
-  'Deer',
-  'Diamond',
-  'Hola',
-  'Selena',
-  'Pizza',
-  'Resist',
-  'Bear',
-] as const
+export const graphicKindMap = {
+  Skull: Skull,
+  SkullOutline: SkullOutline,
+  Bat: Bat,
+  Cumbia: Cumbia,
+  Deer: Deer,
+  Diamond: Diamond,
+  Hola: Hola,
+  Selena: Selena,
+  Pizza: Pizza,
+  Resist: Resist,
+  Bear: Bear,
+} as const;
+export const graphicList = Object.keys(graphicKindMap) as GraphicType[];
 
-export type GraphicType = typeof GraphicKind[number];
-
-function selector(type: GraphicType, maskID: string) {
-  switch (type) {
-    case 'Skull':
-      return <Skull maskID={maskID}/>;
-    case 'SkullOutline':
-      return <SkullOutline maskID={maskID}/>;
-    case 'Bat':
-      return <Bat maskID={maskID}/>;
-    case 'Cumbia':
-      return <Cumbia maskID={maskID}/>;
-    case 'Deer':
-      return <Deer maskID={maskID}/>;
-    case 'Diamond':
-      return <Diamond maskID={maskID}/>;
-    case 'Hola':
-      return <Hola maskID={maskID}/>;
-    case 'Selena':
-      return <Selena maskID={maskID}/>;
-    case 'Pizza':
-      return <Pizza maskID={maskID}/>;
-    case 'Resist':
-      return <Resist maskID={maskID}/>;
-    case 'Bear':
-      return <Bear maskID={maskID}/>;
-    default:
-      return null;
-  }
-}
+export type GraphicType = keyof typeof graphicKindMap;
 
 export default function Graphic({type, maskID} : {type: GraphicType, maskID: string}) {
-  return selector(type, maskID)
+  const GraphicComponent = graphicKindMap[type]
+  return <GraphicComponent maskID={maskID} />
 }

@@ -1,9 +1,9 @@
 import React, { useId } from 'react'
-import { colorString } from '../color'
+import { ColorString } from '../color'
 import Colors from './Colors'
 import Graphic, { GraphicType } from './graphic'
 
-export default function GraphicShirt({graphic, color} : {graphic: GraphicType, color: colorString}) {
+export default function GraphicShirt({graphic, color} : {graphic: GraphicType, color: ColorString}) {
   const path1 = useId()
   const mask1 = useId()
   return (
