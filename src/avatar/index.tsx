@@ -2,7 +2,7 @@ import React, { useId } from 'react'
 import Cloth, { ClothType } from './cloth'
 import Face from './face'
 import { GraphicType } from './cloth/graphic'
-import { ColorString, HairColorString, SkinColorString } from './color'
+import { colorMap, ColorString, HairColorString, SkinColorString } from './color'
 import { EyeType } from './face/eye'
 import { EyebrowType } from './face/eyebrow'
 import { MouthType } from './face/mouth'
@@ -12,8 +12,7 @@ import Accesories, { AccessoriesType } from './top/accessories'
 import Top, { TopType } from './top'
 
 export interface AvatarProps {
-  className?: string
-  style?: React.CSSProperties
+  backgroundColor?: ColorString
   topType?: TopType
   accessoriesType?: AccessoriesType
   hatColor?: ColorString
@@ -38,7 +37,51 @@ export const avatarStyleKind = [
 
 export type AvatarStyleType = typeof avatarStyleKind[number]
 
-export default function Avatar(props : AvatarProps) {
+type SvgProps = Omit<React.SVGAttributes<SVGSVGElement>, 
+        'viewBox'|'version'|'xmlns'|'xmlnsXlink'>
+
+function BackgroundFill({color, mask1, path1} : {color: ColorString, mask1: string, path1: string}) {
+  return <g
+    id="Circle"
+    strokeWidth="1"
+    fillRule="evenodd"
+    transform="translate(12.000000, 40.000000)">
+    <mask id={mask1} fill="white">
+      <use xlinkHref={'#' + path1} />
+    </mask>
+    <use
+      id="Circle-Background"
+      fill="#E6E6E6"
+      xlinkHref={'#' + path1}
+    />
+    <g
+      id="Color/Palette/Blue-01"
+      mask={'url(#' + mask1 + ')'}
+      fill={colorMap[color]}>
+      <rect id="🖍Color" x="0" y="0" width="240" height="240" />
+    </g>
+  </g>
+}
+
+export default function Avatar(props : AvatarProps & SvgProps) {
+  const {
+    backgroundColor = "Blue01",
+    topType,
+    accessoriesType,
+    hatColor,
+    hairColor,
+    facialHairType,
+    facialHairColor,
+    clothType,
+    clothColor,
+    graphicType,
+    eyeType,
+    eyebrowType,
+    mouthType,
+    skinColor,
+    avatarStyle,
+    ...rest
+  } = props;
   const circle = props.avatarStyle === 'Circle'
   const path1 = useId()
   const path2 = useId()
@@ -46,13 +89,10 @@ export default function Avatar(props : AvatarProps) {
   const mask1 = useId()
   const mask2 = useId()
   const mask3 = useId()
-  return <svg
-    className={props.className}
-    style={props.style}
-    width="264px"
-    height="280px"
+  return <svg 
+    {...rest}
     viewBox="0 0 264 280"
-    role="img"
+    role={props.role??"img"}
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -79,26 +119,7 @@ export default function Avatar(props : AvatarProps) {
         id="Avataaar/Circle">
         <g transform="translate(825.000000, 1100.000000)">
           {circle ? (
-            <g
-              id="Circle"
-              strokeWidth="1"
-              fillRule="evenodd"
-              transform="translate(12.000000, 40.000000)">
-              <mask id={mask1} fill="white">
-                <use xlinkHref={'#' + path1} />
-              </mask>
-              <use
-                id="Circle-Background"
-                fill="#E6E6E6"
-                xlinkHref={'#' + path1}
-              />
-              <g
-                id="Color/Palette/Blue-01"
-                mask={'url(#' + mask1 + ')'}
-                fill="#65C9FF">
-                <rect id="🖍Color" x="0" y="0" width="240" height="240" />
-              </g>
-            </g>
+            <BackgroundFill color={backgroundColor} mask1={mask1} path1={path1} />
           ) : null}
           {circle ? (
             <mask id={mask2} fill="white">
@@ -125,11 +146,11 @@ export default function Avatar(props : AvatarProps) {
                 mask={'url(#' + mask3 + ')'}
               />
             </g>
-            <Cloth type={props.clothType} color={props.clothColor} graphic={props.graphicType}/>
-            <Face eyeType={props.eyeType} eyebrowType={props.eyebrowType} mouthType={props.mouthType}/>
-            <Top type={props.topType} haircolor={props.hairColor} color={props.hatColor}>
-              <FacialHair type={props.facialHairType} color={props.facialHairColor}/>
-              <Accesories type={props.accessoriesType}/>
+            <Cloth type={clothType} color={clothColor} graphic={graphicType}/>
+            <Face eyeType={eyeType} eyebrowType={eyebrowType} mouthType={mouthType}/>
+            <Top type={topType} haircolor={hairColor} color={hatColor}>
+              <FacialHair type={facialHairType} color={facialHairColor}/>
+              <Accesories type={accessoriesType}/>
             </Top>
           </g>
         </g>

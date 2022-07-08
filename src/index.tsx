@@ -1,5 +1,6 @@
 import Avatar from "./avatar";
 
+// part lists
 export { colorStringList } from "./avatar/color";
 export { hairColorStringList } from "./avatar/color";
 export { skinColorStringList } from "./avatar/color";
@@ -12,6 +13,9 @@ export { graphicList } from "./avatar/cloth/graphic";
 export { eyeList } from "./avatar/face/eye";
 export { eyebrowList } from "./avatar/face/eyebrow";
 export { mouthList } from "./avatar/face/mouth";
+
+// types
+export { AvatarProps } from "./avatar"
 
 export { ColorString } from "./avatar/color";
 export { HairColorString } from "./avatar/color";

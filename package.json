@@ -5,6 +5,10 @@
   "types": "dist/index.d.ts",
   "author": "Taehee Kim <ktthee1995@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "avatar"
+  ],
   "scripts": {
     "build": "tsc"
   },
