@@ -26,7 +26,7 @@ export interface AvatarProps {
   eyebrowType?: EyebrowType
   mouthType?: MouthType
   skinColor?: SkinColorString
-  avatarStyle: AvatarStyleType
+  avatarStyle?: AvatarStyleType
 }
 
 // background style
@@ -79,10 +79,10 @@ export default function Avatar(props : AvatarProps & SvgProps) {
     eyebrowType,
     mouthType,
     skinColor,
-    avatarStyle,
+    avatarStyle = "Circle",
     ...rest
   } = props;
-  const circle = props.avatarStyle === 'Circle'
+  const circle = avatarStyle === 'Circle'
   const path1 = useId()
   const path2 = useId()
   const path3 = useId()
